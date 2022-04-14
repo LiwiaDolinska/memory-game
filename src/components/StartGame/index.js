@@ -55,27 +55,27 @@ export function StartGame(props) {
             <StartGameWindow>
                 <ThemeToChoose>Select Theme</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="theme" id="numbers"></Input>
+                    <Input type="radio" name="theme" id="numbers" value="Numbers"></Input>
                     <OptionToChoose for="numbers">Numbers</OptionToChoose>
-                    <Input type="radio" name="theme" id="icons"></Input>
+                    <Input type="radio" name="theme" id="icons" value="Icons"></Input>
                     <OptionToChoose for="icons">Icons</OptionToChoose>
                 </div>
                 <ThemeToChoose>Number of players</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="players-number" id="one"></Input>
+                    <Input type="radio" name="players-number" id="one" value="1 player"></Input>
                     <OptionToChoose for="one">1 player</OptionToChoose>
-                    <Input type="radio" name="players-number" id="two"></Input>
+                    <Input type="radio" name="players-number" id="two" value="2 players"></Input>
                     <OptionToChoose for="two">2 players</OptionToChoose>
-                    <Input type="radio" name="players-number" id="three"></Input>
+                    <Input type="radio" name="players-number" id="three" value="3 players"></Input>
                     <OptionToChoose for="three">3 players</OptionToChoose>
-                    <Input type="radio" name="players-number" id="four"></Input>
+                    <Input type="radio" name="players-number" id="four" value="4 players"></Input>
                     <OptionToChoose for="four">4 players</OptionToChoose>
                 </div>
                 <ThemeToChoose>Size of game</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="game-size" id="4"></Input>
+                    <Input type="radio" name="game-size" id="4" value="4*4"></Input>
                     <OptionToChoose for="4">4*4</OptionToChoose>
-                    <Input type="radio" name="game-size" id="6"></Input>
+                    <Input type="radio" name="game-size" id="6" value="6*6"></Input>
                     <OptionToChoose for="6">6*6</OptionToChoose>
                 </div>
                 <StartButton onClick={props.onStart}>Start game!</StartButton>
