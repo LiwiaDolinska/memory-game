@@ -5,6 +5,7 @@ color: white;
 background-color: black;
 text-align: center;
 font-size: 40px;
+font-family: 'Raleway', sans-serif;
 height: 1000px;
 padding: 50px;
 `
@@ -21,7 +22,7 @@ const ThemeToChoose = styled.h1`
 color: grey;
 font-size: 20px;
 `
-const OptionToChoose = styled.button`
+const OptionToChoose = styled.label`
 color: white;
 border: grey;
 background-color: grey;
@@ -30,6 +31,13 @@ padding: 15px 32px;
 margin: 4px 2px;
 display: inline-block;
 border-radius: 30px;
+`
+const Input = styled.input`
+display: none;
+&:checked + label {
+background-color: black; 
+}
+
 `
 const StartButton = styled.button`
 color: white;
@@ -41,28 +49,36 @@ border: orange;
 margin: 40px;
 `
 
-export function StartGame() {
+export function StartGame(props) {
     return <>
         <StartPage>Start game Memory!
             <StartGameWindow>
                 <ThemeToChoose>Select Theme</ThemeToChoose>
                 <div>
-                    <OptionToChoose>Numbers</OptionToChoose>
-                    <OptionToChoose>Icons</OptionToChoose>
+                    <Input type="radio" name="theme" id="numbers"></Input>
+                    <OptionToChoose for="numbers">Numbers</OptionToChoose>
+                    <Input type="radio" name="theme" id="icons"></Input>
+                    <OptionToChoose for="icons">Icons</OptionToChoose>
                 </div>
                 <ThemeToChoose>Number of players</ThemeToChoose>
                 <div>
-                    <OptionToChoose>1 player</OptionToChoose>
-                    <OptionToChoose>2 players</OptionToChoose>
-                    <OptionToChoose>3 players</OptionToChoose>
-                    <OptionToChoose>4 players</OptionToChoose>
+                    <Input type="radio" name="players-number" id="one"></Input>
+                    <OptionToChoose for="one">1 player</OptionToChoose>
+                    <Input type="radio" name="players-number" id="two"></Input>
+                    <OptionToChoose for="two">2 players</OptionToChoose>
+                    <Input type="radio" name="players-number" id="three"></Input>
+                    <OptionToChoose for="three">3 players</OptionToChoose>
+                    <Input type="radio" name="players-number" id="four"></Input>
+                    <OptionToChoose for="four">4 players</OptionToChoose>
                 </div>
                 <ThemeToChoose>Size of game</ThemeToChoose>
                 <div>
-                    <OptionToChoose>4*4</OptionToChoose>
-                    <OptionToChoose>6*6</OptionToChoose>
+                    <Input type="radio" name="game-size" id="4"></Input>
+                    <OptionToChoose for="4">4*4</OptionToChoose>
+                    <Input type="radio" name="game-size" id="6"></Input>
+                    <OptionToChoose for="6">6*6</OptionToChoose>
                 </div>
-                <StartButton>Start game!</StartButton>
+                <StartButton onClick={props.onStart}>Start game!</StartButton>
             </StartGameWindow>
         </StartPage>
     </>
