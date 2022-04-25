@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const StartPage = styled.div`
@@ -50,35 +51,53 @@ margin: 40px;
 `
 
 export function StartGame(props) {
+    const [values, setValues] = useState({
+        theme: '',
+        playersNumber: '',
+        gameSize: '',
+    })
+
+    function handleChange(event) {
+        setValues({
+            ...values, [event.target.name]: event.target.value,
+        })
+
+    }
+    function handleSubmit() {
+        console.log(values)
+        props.onStart(
+            values
+        )
+    }
     return <>
         <StartPage>Start game Memory!
             <StartGameWindow>
                 <ThemeToChoose>Select Theme</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="theme" id="numbers" value="Numbers"></Input>
+                    <Input onChange={handleChange} type="radio" name="theme" id="numbers" value="Numbers"></Input>
                     <OptionToChoose for="numbers">Numbers</OptionToChoose>
-                    <Input type="radio" name="theme" id="icons" value="Icons"></Input>
+                    <Input onChange={handleChange} type="radio" name="theme" id="icons" value="Icons"></Input>
                     <OptionToChoose for="icons">Icons</OptionToChoose>
                 </div>
                 <ThemeToChoose>Number of players</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="players-number" id="one" value="1 player"></Input>
+                    <Input onChange={handleChange} type="radio" name="playersNumber" id="one" value="1 player"></Input>
                     <OptionToChoose for="one">1 player</OptionToChoose>
-                    <Input type="radio" name="players-number" id="two" value="2 players"></Input>
+                    <Input onChange={handleChange} type="radio" name="playersNumber" id="two" value="2 players"></Input>
                     <OptionToChoose for="two">2 players</OptionToChoose>
-                    <Input type="radio" name="players-number" id="three" value="3 players"></Input>
+                    <Input onChange={handleChange} type="radio" name="playersNumber" id="three" value="3 players"></Input>
                     <OptionToChoose for="three">3 players</OptionToChoose>
-                    <Input type="radio" name="players-number" id="four" value="4 players"></Input>
+                    <Input onChange={handleChange} type="radio" name="playersNumber" id="four" value="4 players"></Input>
                     <OptionToChoose for="four">4 players</OptionToChoose>
                 </div>
                 <ThemeToChoose>Size of game</ThemeToChoose>
                 <div>
-                    <Input type="radio" name="game-size" id="4" value="4*4"></Input>
+                    <Input onChange={handleChange} type="radio" name="gameSize" id="4" value={4}></Input>
                     <OptionToChoose for="4">4*4</OptionToChoose>
-                    <Input type="radio" name="game-size" id="6" value="6*6"></Input>
+                    <Input onChange={handleChange} type="radio" name="gameSize" id="6" value="6*6"></Input>
                     <OptionToChoose for="6">6*6</OptionToChoose>
                 </div>
-                <StartButton onClick={props.onStart}>Start game!</StartButton>
+                <StartButton onClick={handleSubmit}>Start game!</StartButton>
             </StartGameWindow>
         </StartPage>
     </>

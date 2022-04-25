@@ -22,7 +22,7 @@ border: grey;
 background-color: grey;
 font-size: 15px;
 padding: 15px 32px;
-margin: 4px 2px;
+margin: 15px 20px;
 display: inline-block;
 border-radius: 5px;
 `
@@ -42,6 +42,7 @@ const GameSection = styled.div`
 
 const PlayersSection = styled.div`
 display: flex;
+justify-content: center;
 `
 export function Game() {
     return <>
