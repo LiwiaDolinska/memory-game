@@ -5,7 +5,12 @@ import { Game } from "./components/Game";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState(false)
-  return hasGameStarted ? <Game /> : <StartGame onStart={() => setHasGameStarted(true)} />
+  const [values, setValues] = useState({
+    theme: '',
+    playersNumber: '',
+    gameSize: '',
+  })
+  return hasGameStarted ? <Game /> : <StartGame onStart={() => setHasGameStarted(true)} onChange={setValues} onSubmit={values} />
 
 }
 export default App;

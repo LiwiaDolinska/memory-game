@@ -52,7 +52,7 @@ export function Game() {
                     <h1>memory</h1>
                 </div>
                 <div>
-                    <Button>Restart</Button>
+                    <Button>Show cards</Button>
                     <Button>New Game</Button>
                 </div>
             </FirstSection>

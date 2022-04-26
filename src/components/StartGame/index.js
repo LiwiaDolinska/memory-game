@@ -63,10 +63,13 @@ export function StartGame(props) {
         })
 
     }
-    function handleSubmit() {
+    function handleSubmit(event) {
         console.log(values)
-        props.onStart(
-            values
+        props.onStart({
+            theme: event.target.value,
+            playersNumber: event.target.value,
+            gameSize: event.target.value,
+        }
         )
     }
     return <>
