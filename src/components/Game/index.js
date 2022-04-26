@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const MainPage = styled.div`
@@ -44,7 +45,32 @@ const PlayersSection = styled.div`
 display: flex;
 justify-content: center;
 `
+const cardsImages = [
+    { "src": "/cards/gameCards/avocado.jpg" },
+    { "src": "/cards/gameCards/banana.jpg" },
+    { "src": "/cards/gameCards/cherry.jpg" },
+    { "src": "/cards/gameCards/orange.jpg" },
+    { "src": "/cards/gameCards/pineapple.jpg" },
+    { "src": "/cards/gameCards/strawberry.jpg" },
+    { "src": "/cards/gameCards/lime.jpg" },
+]
+
 export function Game() {
+    const [cards, setCards] = useState([])
+    const [turns, setTurns] = useState(0)
+
+    // rozłożyć karty, podwoić je
+
+    const shuffleCards = () => {
+        const shuffledCards = [...cardsImages, ...cardsImages]
+            .sort(() => Math.random() - 0.5)
+            .map((card) => ({ ...card, id: Math.random }))
+
+        setCards(shuffledCards)
+        setTurns(0)
+    }
+    console.log(cards, turns)
+
     return <>
         <MainPage>
             <FirstSection>
@@ -52,8 +78,8 @@ export function Game() {
                     <h1>memory</h1>
                 </div>
                 <div>
-                    <Button>Show cards</Button>
-                    <Button>New Game</Button>
+                    <Button >Show cards</Button>
+                    <Button onClick={shuffleCards}>New Game</Button>
                 </div>
             </FirstSection>
             <PlayersSection>
