@@ -38,7 +38,10 @@ display: flex;
 justify-content: space-between;
 `
 const GameSection = styled.div`
-
+margin-top: 40px;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-gap: 20px;
 `
 
 const PlayersSection = styled.div`
@@ -53,6 +56,8 @@ const cardsImages = [
     { "src": "/cards/gameCards/pineapple.jpg" },
     { "src": "/cards/gameCards/strawberry.jpg" },
     { "src": "/cards/gameCards/lime.jpg" },
+    { "src": "/cards/gameCards/cover.jpg" },
+
 ]
 
 export function Game() {
@@ -82,6 +87,16 @@ export function Game() {
                     <Button onClick={shuffleCards}>New Game</Button>
                 </div>
             </FirstSection>
+            <GameSection>
+                {cards.map(card => (
+                    <div className="card" key={card.id}>
+                        <div>
+                            <img className="picture" src={card.src} alt="card picture" style={{ height: "300px", width: "300px" }} />
+                            <img className="cover" src="/cards/gameCards/cover.jpg" alt='card cover' style={{ height: "300px", width: "300px" }} />
+                        </div>
+                    </div>
+                ))}
+            </GameSection>
             <PlayersSection>
                 <PlayerButton>1 player</PlayerButton>
                 <PlayerButton>2 player</PlayerButton>
