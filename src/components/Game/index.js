@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { SingleCard } from "../SingleCard";
 
 const MainPage = styled.div`
 color: black;
@@ -48,6 +49,8 @@ const PlayersSection = styled.div`
 display: flex;
 justify-content: center;
 `
+
+
 const cardsImages = [
     { "src": "/cards/gameCards/avocado.jpg" },
     { "src": "/cards/gameCards/banana.jpg" },
@@ -56,7 +59,6 @@ const cardsImages = [
     { "src": "/cards/gameCards/pineapple.jpg" },
     { "src": "/cards/gameCards/strawberry.jpg" },
     { "src": "/cards/gameCards/lime.jpg" },
-    { "src": "/cards/gameCards/cover.jpg" },
 
 ]
 
@@ -69,7 +71,7 @@ export function Game() {
     const shuffleCards = () => {
         const shuffledCards = [...cardsImages, ...cardsImages]
             .sort(() => Math.random() - 0.5)
-            .map((card) => ({ ...card, id: Math.random }))
+            .map((card) => ({ ...card, id: Math.random() }))
 
         setCards(shuffledCards)
         setTurns(0)
@@ -89,12 +91,7 @@ export function Game() {
             </FirstSection>
             <GameSection>
                 {cards.map(card => (
-                    <div className="card" key={card.id}>
-                        <div>
-                            <img className="picture" src={card.src} alt="card picture" style={{ height: "300px", width: "300px" }} />
-                            <img className="cover" src="/cards/gameCards/cover.jpg" alt='card cover' style={{ height: "300px", width: "300px" }} />
-                        </div>
-                    </div>
+                    <SingleCard />
                 ))}
             </GameSection>
             <PlayersSection>

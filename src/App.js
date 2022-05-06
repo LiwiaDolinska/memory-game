@@ -10,7 +10,13 @@ function App() {
     playersNumber: '',
     gameSize: '',
   })
-  return hasGameStarted ? <Game /> : <StartGame onStart={() => setHasGameStarted(true)} onChange={setValues} onSubmit={values} />
+  const handleStart = (gameSettings) => {
+    setHasGameStarted(true)
+    setValues(gameSettings)
+    console.log(gameSettings)
+  }
+
+  return hasGameStarted ? <Game /> : <StartGame onStart={handleStart} onChange={setValues} />
 
 }
 export default App;
