@@ -91,7 +91,7 @@ export function Game() {
             </FirstSection>
             <GameSection>
                 {cards.map(card => (
-                    <SingleCard />
+                    <SingleCard card={card} key={card.id} />
                 ))}
             </GameSection>
             <PlayersSection>
