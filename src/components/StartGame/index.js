@@ -77,8 +77,8 @@ export function StartGame(props) {
                 <div>
                     <Input onChange={handleChange} type="radio" name="theme" id="numbers" value="Numbers"></Input>
                     <OptionToChoose for="numbers">Numbers</OptionToChoose>
-                    <Input onChange={handleChange} type="radio" name="theme" id="icons" value="Icons"></Input>
-                    <OptionToChoose for="icons">Icons</OptionToChoose>
+                    <Input onChange={handleChange} type="radio" name="theme" id="fruit" value="Fruit"></Input>
+                    <OptionToChoose for="fruit">Fruit</OptionToChoose>
                 </div>
                 <ThemeToChoose>Number of players</ThemeToChoose>
                 <div>
