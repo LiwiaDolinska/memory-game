@@ -41,7 +41,7 @@ justify-content: space-between;
 const GameSection = styled.div`
 margin-top: 40px;
 display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-template-columns: ${props => `repeat(${props.gameSize}, 1fr);`};
 grid-gap: 20px;
 `
 
@@ -59,17 +59,31 @@ const cardsImages = [
     { "src": "/cards/gameCards/pineapple.jpg" },
     { "src": "/cards/gameCards/strawberry.jpg" },
     { "src": "/cards/gameCards/lime.jpg" },
+    { "src": "/cards/gameCards/avocado.jpg" },
+    { "src": "/cards/gameCards/banana.jpg" },
+    { "src": "/cards/gameCards/cherry.jpg" },
+    { "src": "/cards/gameCards/orange.jpg" },
+    { "src": "/cards/gameCards/pineapple.jpg" },
+    { "src": "/cards/gameCards/strawberry.jpg" },
+    { "src": "/cards/gameCards/lime.jpg" },
+    { "src": "/cards/gameCards/orange.jpg" },
+    { "src": "/cards/gameCards/pineapple.jpg" },
+    { "src": "/cards/gameCards/strawberry.jpg" },
+    { "src": "/cards/gameCards/lime.jpg" },
 
 ]
 
-export function Game() {
+export function Game({ gameSize, theme }) {
+    // console.log(gameSize)
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
 
     // rozłożyć karty, podwoić je
 
     const shuffleCards = () => {
-        const shuffledCards = [...cardsImages, ...cardsImages]
+        const pairs = gameSize * gameSize / 2
+        const limitedCards = cardsImages.slice(0, pairs)
+        const shuffledCards = [...limitedCards, ...limitedCards]
             .sort(() => Math.random() - 0.5)
             .map((card) => ({ ...card, id: Math.random() }))
 
@@ -89,7 +103,7 @@ export function Game() {
                     <Button onClick={shuffleCards}>New Game</Button>
                 </div>
             </FirstSection>
-            <GameSection>
+            <GameSection gameSize={gameSize} theme={theme}>
                 {cards.map(card => (
                     <SingleCard card={card} key={card.id} />
                 ))}

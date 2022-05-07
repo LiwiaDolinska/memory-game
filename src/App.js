@@ -16,7 +16,7 @@ function App() {
     console.log(gameSettings)
   }
 
-  return hasGameStarted ? <Game /> : <StartGame onStart={handleStart} onChange={setValues} />
+  return hasGameStarted ? <Game gameSize={values.gameSize} theme={values.theme} /> : <StartGame onStart={handleStart} onChange={setValues} />
 
 }
 export default App;
