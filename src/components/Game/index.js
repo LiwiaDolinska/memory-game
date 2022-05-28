@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SingleCard } from "../SingleCard";
 
@@ -49,57 +49,66 @@ const PlayersSection = styled.div`
 display: flex;
 justify-content: center;
 `
+const numbersCover = "/cards/numberGameCards/number-cover.jpg"
 
+const fruitCover = "/cards/fruitsGameCards/cover.jpg"
 
-const cardsImages = [
-    { "src": "/cards/gameCards/avocado.jpg" },
-    { "src": "/cards/gameCards/banana.jpg" },
-    { "src": "/cards/gameCards/cherry.jpg" },
-    { "src": "/cards/gameCards/orange.jpg" },
-    { "src": "/cards/gameCards/pineapple.jpg" },
-    { "src": "/cards/gameCards/strawberry.jpg" },
-    { "src": "/cards/gameCards/lime.jpg" },
-    { "src": "/cards/gameCards/apricot.jpg" },
-    { "src": "/cards/gameCards/blueberries.jpg" },
-    { "src": "/cards/gameCards/fig.jpg" },
-    { "src": "/cards/gameCards/grapes.jpg" },
-    { "src": "/cards/gameCards/kiwi.jpg" },
-    { "src": "/cards/gameCards/melon.jpg" },
-    { "src": "/cards/gameCards/pear.jpg" },
-    { "src": "/cards/gameCards/pomegranate friut.jpg" },
-    { "src": "/cards/gameCards/raspberries.jpg" },
-    { "src": "/cards/gameCards/watermelon.jpg" },
-    { "src": "/cards/gameCards/papaya.jpg" },
-    { "src": "/cards/gameCards/-2.jpg" },
-    { "src": "/cards/gameCards/0.jpg" },
-    { "src": "/cards/gameCards/1.jpg" },
-    { "src": "/cards/gameCards/2.jpg" },
-    { "src": "/cards/gameCards/3.jpg" },
-    { "src": "/cards/gameCards/4.jpg" },
-    { "src": "/cards/gameCards/5.jpg" },
-    { "src": "/cards/gameCards/6.jpg" },
-    { "src": "/cards/gameCards/8.jpg" },
-    { "src": "/cards/gameCards/10.jpg" },
-    { "src": "/cards/gameCards/11.jpg" },
-    { "src": "/cards/gameCards/13.jpg" },
-    { "src": "/cards/gameCards/20.jpg" },
-    { "src": "/cards/gameCards/27.jpg" },
-    { "src": "/cards/gameCards/33.jpg" },
-    { "src": "/cards/gameCards/45.jpg" },
-    { "src": "/cards/gameCards/53.jpg" },
-    { "src": "/cards/gameCards/88.jpg" },
+const fruitsCardsImages = [
+    { "src": "/cards/fruitsGameCards/avocado.jpg" },
+    { "src": "/cards/fruitsGameCards/banana.jpg" },
+    { "src": "/cards/fruitsGameCards/cherry.jpg" },
+    { "src": "/cards/fruitsGameCards/orange.jpg" },
+    { "src": "/cards/fruitsGameCards/pineapple.jpg" },
+    { "src": "/cards/fruitsGameCards/strawberry.jpg" },
+    { "src": "/cards/fruitsGameCards/lime.jpg" },
+    { "src": "/cards/fruitsGameCards/apricot.jpg" },
+    { "src": "/cards/fruitsGameCards/blueberries.jpg" },
+    { "src": "/cards/fruitsGameCards/fig.jpg" },
+    { "src": "/cards/fruitsGameCards/grapes.jpg" },
+    { "src": "/cards/fruitsGameCards/kiwi.jpg" },
+    { "src": "/cards/fruitsGameCards/melon.jpg" },
+    { "src": "/cards/fruitsGameCards/pear.jpg" },
+    { "src": "/cards/fruitsGameCards/pomegranate friut.jpg" },
+    { "src": "/cards/fruitsGameCards/raspberries.jpg" },
+    { "src": "/cards/fruitsGameCards/watermelon.jpg" },
+    { "src": "/cards/fruitsGameCards/papaya.jpg" },
 
 ]
 
+const numberCardImages = [
+    { "src": "/cards/numberGameCards/-2.jpg" },
+    { "src": "/cards/numberGameCards/0.jpg" },
+    { "src": "/cards/numberGameCards/1.jpg" },
+    { "src": "/cards/numberGameCards/2.jpg" },
+    { "src": "/cards/numberGameCards/3.jpg" },
+    { "src": "/cards/numberGameCards/4.jpg" },
+    { "src": "/cards/numberGameCards/5.jpg" },
+    { "src": "/cards/numberGameCards/6.jpg" },
+    { "src": "/cards/numberGameCards/8.jpg" },
+    { "src": "/cards/numberGameCards/10.jpg" },
+    { "src": "/cards/numberGameCards/11.jpg" },
+    { "src": "/cards/numberGameCards/13.jpg" },
+    { "src": "/cards/numberGameCards/20.jpg" },
+    { "src": "/cards/numberGameCards/27.jpg" },
+    { "src": "/cards/numberGameCards/33.jpg" },
+    { "src": "/cards/numberGameCards/45.jpg" },
+    { "src": "/cards/numberGameCards/53.jpg" },
+    { "src": "/cards/numberGameCards/88.jpg" },
+]
+
 export function Game({ gameSize, theme }) {
-    // console.log(gameSize)
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
+    const [firstChosenCard, setFirstChosenCard] = useState(null)
+    const [secondChosenCard, setSecondChosenCard] = useState(null)
+    const cover = theme === "Numbers" ? numbersCover : fruitCover
+
 
     // rozłożyć karty, podwoić je
 
     const shuffleCards = () => {
         const pairs = gameSize * gameSize / 2
+        let cardsImages = theme === "Numbers" ? numberCardImages : fruitsCardsImages
         const limitedCards = cardsImages.slice(0, pairs)
         const shuffledCards = [...limitedCards, ...limitedCards]
             .sort(() => Math.random() - 0.5)
@@ -108,8 +117,28 @@ export function Game({ gameSize, theme }) {
         setCards(shuffledCards)
         setTurns(0)
     }
-    console.log(cards, turns)
 
+    // wybór karty
+    const handleChoice = (card) => {
+        if (firstChosenCard === null) {
+            setFirstChosenCard(card)
+            return
+        }
+        if (firstChosenCard.src === card.src) {
+            console.log("pasuje")
+            resetTurn()
+        } else {
+            console.log("nie pasuje:(")
+            resetTurn()
+        }
+    }
+
+
+    const resetTurn = () => {
+        setFirstChosenCard(null)
+        setSecondChosenCard(null)
+        setTurns(prevTurn => prevTurn + 1)
+    }
     return <>
         <MainPage>
             <FirstSection>
@@ -123,7 +152,7 @@ export function Game({ gameSize, theme }) {
             </FirstSection>
             <GameSection gameSize={gameSize} theme={theme}>
                 {cards.map(card => (
-                    <SingleCard card={card} key={card.id} />
+                    <SingleCard card={card} key={card.id} cover={cover} handleChoice={handleChoice} />
                 ))}
             </GameSection>
             <PlayersSection>
