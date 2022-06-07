@@ -161,11 +161,13 @@ export function Game({ gameSize, theme }) {
             })
         })
     }
-
+    useEffect(() => {
+        shuffleCards()
+    }, [])
 
     return <>
         <MainPage>
-            <FirstSection>
+            <FirstSection >
                 <div>
                     <h1>memory</h1>
                 </div>
@@ -186,6 +188,7 @@ export function Game({ gameSize, theme }) {
                 ))}
             </GameSection>
             <PlayersSection>
+                <p>Turns: {turns}</p>
                 <PlayerButton>1 player</PlayerButton>
                 <PlayerButton>2 player</PlayerButton>
                 <PlayerButton>3 player</PlayerButton>
