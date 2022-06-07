@@ -54,46 +54,46 @@ const numbersCover = "/cards/numberGameCards/number-cover.jpg"
 const fruitCover = "/cards/fruitsGameCards/cover.jpg"
 
 const fruitsCardsImages = [
-    { "src": "/cards/fruitsGameCards/avocado.jpg" },
-    { "src": "/cards/fruitsGameCards/banana.jpg" },
-    { "src": "/cards/fruitsGameCards/cherry.jpg" },
-    { "src": "/cards/fruitsGameCards/orange.jpg" },
-    { "src": "/cards/fruitsGameCards/pineapple.jpg" },
-    { "src": "/cards/fruitsGameCards/strawberry.jpg" },
-    { "src": "/cards/fruitsGameCards/lime.jpg" },
-    { "src": "/cards/fruitsGameCards/apricot.jpg" },
-    { "src": "/cards/fruitsGameCards/blueberries.jpg" },
-    { "src": "/cards/fruitsGameCards/fig.jpg" },
-    { "src": "/cards/fruitsGameCards/grapes.jpg" },
-    { "src": "/cards/fruitsGameCards/kiwi.jpg" },
-    { "src": "/cards/fruitsGameCards/melon.jpg" },
-    { "src": "/cards/fruitsGameCards/pear.jpg" },
-    { "src": "/cards/fruitsGameCards/pomegranate friut.jpg" },
-    { "src": "/cards/fruitsGameCards/raspberries.jpg" },
-    { "src": "/cards/fruitsGameCards/watermelon.jpg" },
-    { "src": "/cards/fruitsGameCards/papaya.jpg" },
+    { "src": "/cards/fruitsGameCards/avocado.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/banana.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/cherry.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/orange.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pineapple.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/strawberry.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/lime.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/apricot.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/blueberries.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/fig.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/grapes.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/kiwi.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/melon.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pear.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pomegranate friut.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/raspberries.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/watermelon.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/papaya.jpg", matched: false },
 
 ]
 
 const numberCardImages = [
-    { "src": "/cards/numberGameCards/-2.jpg" },
-    { "src": "/cards/numberGameCards/0.jpg" },
-    { "src": "/cards/numberGameCards/1.jpg" },
-    { "src": "/cards/numberGameCards/2.jpg" },
-    { "src": "/cards/numberGameCards/3.jpg" },
-    { "src": "/cards/numberGameCards/4.jpg" },
-    { "src": "/cards/numberGameCards/5.jpg" },
-    { "src": "/cards/numberGameCards/6.jpg" },
-    { "src": "/cards/numberGameCards/8.jpg" },
-    { "src": "/cards/numberGameCards/10.jpg" },
-    { "src": "/cards/numberGameCards/11.jpg" },
-    { "src": "/cards/numberGameCards/13.jpg" },
-    { "src": "/cards/numberGameCards/20.jpg" },
-    { "src": "/cards/numberGameCards/27.jpg" },
-    { "src": "/cards/numberGameCards/33.jpg" },
-    { "src": "/cards/numberGameCards/45.jpg" },
-    { "src": "/cards/numberGameCards/53.jpg" },
-    { "src": "/cards/numberGameCards/88.jpg" },
+    { "src": "/cards/numberGameCards/-2.jpg", matched: false },
+    { "src": "/cards/numberGameCards/0.jpg", matched: false },
+    { "src": "/cards/numberGameCards/1.jpg", matched: false },
+    { "src": "/cards/numberGameCards/2.jpg", matched: false },
+    { "src": "/cards/numberGameCards/3.jpg", matched: false },
+    { "src": "/cards/numberGameCards/4.jpg", matched: false },
+    { "src": "/cards/numberGameCards/5.jpg", matched: false },
+    { "src": "/cards/numberGameCards/6.jpg", matched: false },
+    { "src": "/cards/numberGameCards/8.jpg", matched: false },
+    { "src": "/cards/numberGameCards/10.jpg", matched: false },
+    { "src": "/cards/numberGameCards/11.jpg", matched: false },
+    { "src": "/cards/numberGameCards/13.jpg", matched: false },
+    { "src": "/cards/numberGameCards/20.jpg", matched: false },
+    { "src": "/cards/numberGameCards/27.jpg", matched: false },
+    { "src": "/cards/numberGameCards/33.jpg", matched: false },
+    { "src": "/cards/numberGameCards/45.jpg", matched: false },
+    { "src": "/cards/numberGameCards/53.jpg", matched: false },
+    { "src": "/cards/numberGameCards/88.jpg", matched: false },
 ]
 
 export function Game({ gameSize, theme }) {
@@ -120,18 +120,32 @@ export function Game({ gameSize, theme }) {
 
     // wybór karty
     const handleChoice = (card) => {
+        if (firstChosenCard !== null && secondChosenCard !== null) {
+            return
+        }
         if (firstChosenCard === null) {
             setFirstChosenCard(card)
             return
         }
+        setSecondChosenCard(card)
         if (firstChosenCard.src === card.src) {
-            console.log("pasuje")
+            setCards(prevCards => {
+                return prevCards.map(item => {
+                    if (firstChosenCard.src === item.src || card.src === item.src) {
+                        return { ...item, matched: true }
+                    }
+                    return item
+
+                })
+
+            })
             resetTurn()
         } else {
-            console.log("nie pasuje:(")
-            resetTurn()
+            setTimeout(resetTurn, 3000)
         }
     }
+
+    console.log(cards)
 
 
     const resetTurn = () => {
@@ -152,7 +166,13 @@ export function Game({ gameSize, theme }) {
             </FirstSection>
             <GameSection gameSize={gameSize} theme={theme}>
                 {cards.map(card => (
-                    <SingleCard card={card} key={card.id} cover={cover} handleChoice={handleChoice} />
+                    <SingleCard
+                        card={card}
+                        key={card.id}
+                        cover={cover}
+                        handleChoice={handleChoice}
+                        flipped={card === firstChosenCard || card === secondChosenCard || card.matched}
+                    />
                 ))}
             </GameSection>
             <PlayersSection>
