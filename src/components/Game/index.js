@@ -153,6 +153,16 @@ export function Game({ gameSize, theme }) {
         setSecondChosenCard(null)
         setTurns(prevTurn => prevTurn + 1)
     }
+
+    const showCards = () => {
+        setCards(cards => {
+            return cards.map(item => {
+                return { ...item, matched: true }
+            })
+        })
+    }
+
+
     return <>
         <MainPage>
             <FirstSection>
@@ -160,7 +170,7 @@ export function Game({ gameSize, theme }) {
                     <h1>memory</h1>
                 </div>
                 <div>
-                    <Button >Show cards</Button>
+                    <Button onClick={showCards}>Show cards</Button>
                     <Button onClick={shuffleCards}>New Game</Button>
                 </div>
             </FirstSection>
