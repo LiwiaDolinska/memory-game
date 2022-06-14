@@ -64,9 +64,14 @@ export function StartGame(props) {
 
     }
     function handleSubmit() {
-        console.log(values)
+        const newGameConfig = {
+            ...values,
+            playersNumber: parseInt(values.playersNumber),
+            gameSize: parseInt(values.gameSize)
+        }
+        console.log(newGameConfig)
         props.onStart(
-            values
+            newGameConfig
 
         )
     }

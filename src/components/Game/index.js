@@ -96,14 +96,15 @@ const numberCardImages = [
     { "src": "/cards/numberGameCards/88.jpg", matched: false },
 ]
 
-export function Game({ gameSize, theme }) {
+
+export function Game({ gameSize, theme, playersNumber }) {
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
     const [firstChosenCard, setFirstChosenCard] = useState(null)
     const [secondChosenCard, setSecondChosenCard] = useState(null)
     const cover = theme === "Numbers" ? numbersCover : fruitCover
-
-
+    const playersArray = [...Array(playersNumber).keys()]
+    console.log(playersArray, playersNumber)
     // rozłożyć karty, podwoić je
 
     const shuffleCards = () => {
@@ -189,10 +190,9 @@ export function Game({ gameSize, theme }) {
             </GameSection>
             <PlayersSection>
                 <p>Turns: {turns}</p>
-                <PlayerButton>1 player</PlayerButton>
-                <PlayerButton>2 player</PlayerButton>
-                <PlayerButton>3 player</PlayerButton>
-                <PlayerButton>4 player</PlayerButton>
+
+                <PlayerButton></PlayerButton>
+
             </PlayersSection>
         </MainPage>
     </>
