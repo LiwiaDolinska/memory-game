@@ -190,8 +190,11 @@ export function Game({ gameSize, theme, playersNumber }) {
             </GameSection>
             <PlayersSection>
                 <p>Turns: {turns}</p>
+                {playersArray.map(player => (
+                    <PlayerButton player={player} />
+                )
+                )}
 
-                <PlayerButton></PlayerButton>
 
             </PlayersSection>
         </MainPage>
