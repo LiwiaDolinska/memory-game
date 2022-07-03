@@ -18,7 +18,7 @@ export function SingleCard({ card, cover, handleChoice, flipped }) {
 
 
     return <>
-        <div className="card" >
+        <div className="card" style={{ width: "170px" }} >
             <div>
                 {flipped ? picture : coverImg}
 

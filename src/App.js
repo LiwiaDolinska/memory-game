@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import { useState } from 'react';
 import { StartGame } from "./components/StartGame";
 import { Game } from "./components/Game";
+import { NextPlayerTurn } from "./components/NextPlayerTurn";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState(false)
@@ -16,7 +17,8 @@ function App() {
     console.log(gameSettings)
   }
 
-  return hasGameStarted ? <Game gameSize={values.gameSize} playersNumber={values.playersNumber} theme={values.theme} /> : <StartGame onStart={handleStart} onChange={setValues} />
+  return <> {hasGameStarted ? <Game gameSize={values.gameSize} playersNumber={values.playersNumber} theme={values.theme} /> : <StartGame onStart={handleStart} onChange={setValues} />}
+  </>
 
 }
 export default App;

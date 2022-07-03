@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { SingleCard } from "../SingleCard";
 
 const MainPage = styled.div`
-color: black;
-background-color: white;
+color: white;
+background-color: black;
+height: 100vh;
 `
 
 const Button = styled.label`
@@ -15,7 +16,7 @@ font-size: 15px;
 padding: 15px 32px;
 margin: 4px 2px;
 display: inline-block;
-border-radius: 30px;
+border-radius: 5px;
 `
 
 const PlayerButton = styled.label`
@@ -39,15 +40,22 @@ display: flex;
 justify-content: space-between;
 `
 const GameSection = styled.div`
-margin-top: 40px;
+margin-top: 50px;
 display: grid;
 grid-template-columns: ${props => `repeat(${props.gameSize}, 1fr);`};
-grid-gap: 20px;
+column-gap: 10px;
+row-gap: 10px;
 `
 
 const PlayersSection = styled.div`
 display: flex;
 justify-content: center;
+margin: 40px;
+`
+
+const PlayerPoints = styled.label`
+color: white;
+flex-direction: column;
 `
 const numbersCover = "/cards/numberGameCards/number-cover.jpg"
 
@@ -105,6 +113,10 @@ export function Game({ gameSize, theme, playersNumber }) {
     const cover = theme === "Numbers" ? numbersCover : fruitCover
     const playersArray = [...Array(playersNumber).keys()]
     console.log(playersArray, playersNumber)
+    const [points, setPoints] = useState(new Array(playersNumber).fill(0))
+    const [turn, setTurn] = useState(0)
+    console.log(points)
+
     // rozłożyć karty, podwoić je
 
     const shuffleCards = () => {
@@ -130,10 +142,20 @@ export function Game({ gameSize, theme, playersNumber }) {
         }
         setSecondChosenCard(card)
         if (firstChosenCard.src === card.src) {
+            setPoints(prevPoints => {
+                const newPoints = [...prevPoints]
+                newPoints[turn]++
+                return newPoints
+            })
+
             setCards(prevCards => {
                 return prevCards.map(item => {
                     if (firstChosenCard.src === item.src || card.src === item.src) {
+
                         return { ...item, matched: true }
+
+
+
                     }
                     return item
 
@@ -144,8 +166,9 @@ export function Game({ gameSize, theme, playersNumber }) {
         } else {
             setTimeout(resetTurn, 3000)
         }
+        setTurn(prevTurn => (prevTurn + 1) % playersNumber)
     }
-
+    console.log({ points, turn })
     console.log(cards)
 
 
@@ -165,6 +188,7 @@ export function Game({ gameSize, theme, playersNumber }) {
     useEffect(() => {
         shuffleCards()
     }, [])
+
 
     return <>
         <MainPage>
@@ -189,14 +213,22 @@ export function Game({ gameSize, theme, playersNumber }) {
                 ))}
             </GameSection>
             <PlayersSection>
-                <p>Turns: {turns}</p>
+
                 {playersArray.map(player => (
-                    <PlayerButton player={player} />
+                    <>
+                        <PlayerButton player={player} key={player.id}>
+                            Gracz {player + 1}
+
+                        </PlayerButton>
+                        <PlayerPoints>0</PlayerPoints>
+                    </>
+
                 )
+
                 )}
-
-
             </PlayersSection>
         </MainPage>
     </>
 }
+
+
