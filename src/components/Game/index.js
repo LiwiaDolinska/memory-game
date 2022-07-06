@@ -22,7 +22,7 @@ border-radius: 5px;
 const PlayerButton = styled.label`
 color: white;
 border: grey;
-background-color: grey;
+background-color: ${props => props.currentPlayer ? "orange" : "grey"};
 font-size: 15px;
 padding: 15px 32px;
 margin: 15px 20px;
@@ -107,7 +107,6 @@ const numberCardImages = [
 
 export function Game({ gameSize, theme, playersNumber }) {
     const [cards, setCards] = useState([])
-    const [turns, setTurns] = useState(0)
     const [firstChosenCard, setFirstChosenCard] = useState(null)
     const [secondChosenCard, setSecondChosenCard] = useState(null)
     const cover = theme === "Numbers" ? numbersCover : fruitCover
@@ -128,7 +127,6 @@ export function Game({ gameSize, theme, playersNumber }) {
             .map((card) => ({ ...card, id: Math.random() }))
 
         setCards(shuffledCards)
-        setTurns(0)
     }
 
     // wybór karty
@@ -163,10 +161,14 @@ export function Game({ gameSize, theme, playersNumber }) {
 
             })
             resetTurn()
+            setTurn(prevTurn => (prevTurn + 1) % playersNumber)
         } else {
-            setTimeout(resetTurn, 3000)
+            setTimeout(() => {
+                resetTurn()
+                setTurn(prevTurn => (prevTurn + 1) % playersNumber)
+            }, 3000)
         }
-        setTurn(prevTurn => (prevTurn + 1) % playersNumber)
+
     }
     console.log({ points, turn })
     console.log(cards)
@@ -175,7 +177,6 @@ export function Game({ gameSize, theme, playersNumber }) {
     const resetTurn = () => {
         setFirstChosenCard(null)
         setSecondChosenCard(null)
-        setTurns(prevTurn => prevTurn + 1)
     }
 
     const showCards = () => {
@@ -216,11 +217,14 @@ export function Game({ gameSize, theme, playersNumber }) {
 
                 {playersArray.map(player => (
                     <>
-                        <PlayerButton player={player} key={player.id}>
-                            Gracz {player + 1}
+                        <PlayerButton
+                            currentPlayer={turn === player}
+                            key={player.id}
 
+                        >
+                            Gracz {player + 1}
                         </PlayerButton>
-                        <PlayerPoints>0</PlayerPoints>
+                        <PlayerPoints>{points[player]}</PlayerPoints>
                     </>
 
                 )
