@@ -32,6 +32,7 @@ padding: 15px 32px;
 margin: 4px 2px;
 display: inline-block;
 border-radius: 30px;
+cursor: pointer;
 `
 const Input = styled.input`
 display: none;
@@ -48,6 +49,7 @@ font-size: 30px;
 border-radius: 30px;
 border: orange;
 margin: 40px;
+cursor: pointer;
 `
 
 export function StartGame(props) {

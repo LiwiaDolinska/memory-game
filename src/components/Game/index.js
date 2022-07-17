@@ -111,10 +111,8 @@ export function Game({ gameSize, theme, playersNumber }) {
     const [secondChosenCard, setSecondChosenCard] = useState(null)
     const cover = theme === "Numbers" ? numbersCover : fruitCover
     const playersArray = [...Array(playersNumber).keys()]
-    console.log(playersArray, playersNumber)
     const [points, setPoints] = useState(new Array(playersNumber).fill(0))
     const [turn, setTurn] = useState(0)
-    console.log(points)
 
     // rozłożyć karty, podwoić je
 
@@ -127,6 +125,7 @@ export function Game({ gameSize, theme, playersNumber }) {
             .map((card) => ({ ...card, id: Math.random() }))
 
         setCards(shuffledCards)
+
     }
 
     // wybór karty
@@ -160,19 +159,31 @@ export function Game({ gameSize, theme, playersNumber }) {
                 })
 
             })
+            // function getWinner(card) {
+            //     if (card.matched === true) {
+            //         console.log("wygrałeś")
+            //     }
+            // }
+            // cards.every(getWinner)
             resetTurn()
             setTurn(prevTurn => (prevTurn + 1) % playersNumber)
+
         } else {
             setTimeout(() => {
                 resetTurn()
                 setTurn(prevTurn => (prevTurn + 1) % playersNumber)
             }, 3000)
+
         }
 
     }
-    console.log({ points, turn })
-    console.log(cards)
+    function getWinner(card) {
+        if (card.matched === true) {
+            console.log(`wygrał gracz i dostał ${points} punktów `)
 
+        }
+    }
+    cards.every(getWinner)
 
     const resetTurn = () => {
         setFirstChosenCard(null)
@@ -191,6 +202,7 @@ export function Game({ gameSize, theme, playersNumber }) {
     }, [])
 
 
+
     return <>
         <MainPage>
             <FirstSection >
@@ -202,7 +214,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                     <Button onClick={shuffleCards}>New Game</Button>
                 </div>
             </FirstSection>
-            <GameSection gameSize={gameSize} theme={theme}>
+            <GameSection gameSize={gameSize} theme={theme} >
                 {cards.map(card => (
                     <SingleCard
                         card={card}
@@ -225,11 +237,13 @@ export function Game({ gameSize, theme, playersNumber }) {
                             Gracz {player + 1}
                         </PlayerButton>
                         <PlayerPoints>{points[player]}</PlayerPoints>
+
                     </>
 
                 )
 
                 )}
+
             </PlayersSection>
         </MainPage>
     </>
