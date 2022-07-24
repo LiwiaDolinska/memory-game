@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const Image = styled.img`
-height: 100px;
-width: 100px;
+height: 140px;
+width: 140px;
+cursor: pointer;
 `
 
 export function SingleCard({ card, cover, handleChoice, flipped }) {
@@ -18,7 +19,7 @@ export function SingleCard({ card, cover, handleChoice, flipped }) {
 
 
     return <>
-        <div className="card" style={{ width: "170px" }} >
+        <div className="card" >
             <div>
                 {flipped ? picture : coverImg}
 

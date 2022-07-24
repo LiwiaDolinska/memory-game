@@ -13,7 +13,7 @@ padding: 50px;
 const StartGameWindow = styled.div`
 background-color: white;
 width: 50%;
-height: 500px;
+height: auto;
 padding: 10px;
 margin: auto;
 margin-top: 80px;
@@ -48,7 +48,7 @@ padding: 15px 32px;
 font-size: 30px;
 border-radius: 30px;
 border: orange;
-margin: 40px;
+margin-top: 40px;
 cursor: pointer;
 `
 

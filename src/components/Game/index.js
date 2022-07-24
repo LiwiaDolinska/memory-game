@@ -17,6 +17,7 @@ padding: 15px 32px;
 margin: 4px 2px;
 display: inline-block;
 border-radius: 5px;
+cursor: pointer;
 `
 
 const PlayerButton = styled.label`
@@ -42,9 +43,10 @@ justify-content: space-between;
 const GameSection = styled.div`
 margin-top: 50px;
 display: grid;
-grid-template-columns: ${props => `repeat(${props.gameSize}, 1fr);`};
+grid-template-columns: ${props => `repeat(${props.gameSize}, 220px);`};
 column-gap: 10px;
 row-gap: 10px;
+justify-content: center;
 `
 
 const PlayersSection = styled.div`
@@ -104,6 +106,9 @@ const numberCardImages = [
     { "src": "/cards/numberGameCards/88.jpg", matched: false },
 ]
 
+function isWinner(cards) {
+    return cards.length > 0 && cards.every((card) => card.matched)
+}
 
 export function Game({ gameSize, theme, playersNumber }) {
     const [cards, setCards] = useState([])
@@ -159,12 +164,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                 })
 
             })
-            // function getWinner(card) {
-            //     if (card.matched === true) {
-            //         console.log("wygrałeś")
-            //     }
-            // }
-            // cards.every(getWinner)
+
             resetTurn()
             setTurn(prevTurn => (prevTurn + 1) % playersNumber)
 
@@ -177,13 +177,7 @@ export function Game({ gameSize, theme, playersNumber }) {
         }
 
     }
-    function getWinner(card) {
-        if (card.matched === true) {
-            console.log(`wygrał gracz i dostał ${points} punktów `)
 
-        }
-    }
-    cards.every(getWinner)
 
     const resetTurn = () => {
         setFirstChosenCard(null)
@@ -201,7 +195,9 @@ export function Game({ gameSize, theme, playersNumber }) {
         shuffleCards()
     }, [])
 
-
+    if (isWinner(cards)) {
+        console.log("wygrałaś", cards)
+    }
 
     return <>
         <MainPage>
