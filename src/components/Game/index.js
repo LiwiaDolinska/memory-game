@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { SingleCard } from "../SingleCard";
-import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints } from "./styles";
+import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints, WinnerSection } from "./styles";
+import { WinnerAlert } from "../WinnerAlert";
 
 
 const numbersCover = "/cards/numberGameCards/number-cover.jpg"
@@ -56,8 +57,15 @@ function isWinner(cards) {
 
 
 // funkcja która bierze punkty i pobiera index playera
-function showPoints(points, player) {
-    return points[player]
+function getWinners(points) {
+    const highestPoints = Math.max(...points)
+    const winners = []
+    for (let i = 0; i < points.length; i++) {
+        if (highestPoints === points[i]) {
+            winners.push(i)
+        }
+    }
+    return winners
 }
 
 
@@ -69,8 +77,8 @@ export function Game({ gameSize, theme, playersNumber }) {
     const playersArray = [...Array(playersNumber).keys()]
     const [points, setPoints] = useState(new Array(playersNumber).fill(0))
     const [turn, setTurn] = useState(0)
-    const [winner, setWinner] = useState([])
 
+    const winner = isWinner(cards)
     // rozłożyć karty, podwoić je
 
     const shuffleCards = () => {
@@ -147,13 +155,6 @@ export function Game({ gameSize, theme, playersNumber }) {
         shuffleCards()
     }, [])
 
-    if (isWinner(cards)) {
-        // stan wygrania
-        setWinner(winner => {
-            return showPoints(winner)
-        })
-        console.log(points, winner)
-    }
 
     return <>
         <MainPage>
@@ -197,6 +198,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                 )}
 
             </PlayersSection>
+            {winner ? (<WinnerAlert winners={getWinners(points)} />) : null}
         </MainPage>
     </>
 }
