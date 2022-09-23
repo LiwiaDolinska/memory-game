@@ -5,6 +5,8 @@ const MainPage = styled.div`
 color: white;
 background-color: black;
 height: 100vh;
+width: 100%;
+position: relative;
 `
 
 const Button = styled.label`
@@ -40,11 +42,10 @@ display: flex;
 justify-content: space-between;
 `
 const GameSection = styled.div`
-margin-top: 50px;
+margin-top: ${props => props.gameSize === 4 ? "50px" : "20px"};
 display: grid;
-grid-template-columns: ${props => `repeat(${props.gameSize}, 220px);`};
-column-gap: 10px;
-row-gap: 10px;
+grid-template-columns: ${props => `repeat(${props.gameSize}, ${props.gameSize === 4 ? "140px" : "110px"});`};
+grid-gap: ${props => props.gameSize === 4 ? "40px" : "10px"};
 justify-content: center;
 `
 
@@ -59,9 +60,5 @@ color: white;
 flex-direction: column;
 `
 
-const WinnerSection = styled.div`
-background-color: orange;
-color: white;
-`
 
-export { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints, WinnerSection }
+export { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SingleCard } from "../SingleCard";
-import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints, WinnerSection } from "./styles";
+import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints } from "./styles";
 import { WinnerAlert } from "../WinnerAlert";
 
 
@@ -175,6 +175,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                         cover={cover}
                         handleChoice={handleChoice}
                         flipped={card === firstChosenCard || card === secondChosenCard || card.matched}
+                        isSmall={gameSize === 6}
                     />
                 ))}
             </GameSection>
