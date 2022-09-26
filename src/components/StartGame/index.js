@@ -105,7 +105,7 @@ export function StartGame(props) {
                     <Input onChange={handleChange} type="radio" name="gameSize" id="6" value={6}></Input>
                     <OptionToChoose for="6">6*6</OptionToChoose>
                 </div>
-                <StartButton onClick={handleSubmit}>Start game!</StartButton>
+                <StartButton onClick={handleSubmit} disabled={!values.gameSize || !values.playersNumber || !values.theme}>Start game!</StartButton>
             </StartGameWindow>
         </StartPage>
     </>

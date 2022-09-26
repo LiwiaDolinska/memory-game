@@ -13,7 +13,6 @@ function App() {
   const handleStart = (gameSettings) => {
     setHasGameStarted(true)
     setValues(gameSettings)
-    console.log(gameSettings)
   }
 
   return <> {hasGameStarted ? <Game gameSize={values.gameSize} playersNumber={values.playersNumber} theme={values.theme} /> : <StartGame onStart={handleStart} onChange={setValues} />}

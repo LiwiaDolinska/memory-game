@@ -65,6 +65,7 @@ function getWinners(points) {
             winners.push(i)
         }
     }
+    console.log(winners)
     return winners
 }
 
@@ -91,6 +92,12 @@ export function Game({ gameSize, theme, playersNumber }) {
 
         setCards(shuffledCards)
 
+    }
+
+    const resetGame = () => {
+        setPoints(new Array(playersNumber).fill(0))
+        shuffleCards()
+        setTurn(0)
     }
 
     // wybór karty
@@ -164,7 +171,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                 </div>
                 <div>
                     <Button onClick={showCards}>Show cards</Button>
-                    <Button onClick={shuffleCards}>New Game</Button>
+                    <Button onClick={resetGame}>New Game</Button>
                 </div>
             </FirstSection>
             <GameSection gameSize={gameSize} theme={theme} >

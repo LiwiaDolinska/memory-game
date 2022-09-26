@@ -7,7 +7,6 @@ cursor: pointer;
 `
 
 export function SingleCard({ card, cover, handleChoice, flipped, isSmall }) {
-    console.log(isSmall)
     const handleClick = () => {
         handleChoice(card)
     }
