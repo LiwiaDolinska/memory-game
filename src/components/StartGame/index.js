@@ -50,6 +50,9 @@ border-radius: 30px;
 border: orange;
 margin-top: 40px;
 cursor: pointer;
+&:disabled {
+    background-color: grey;
+}
 `
 
 export function StartGame(props) {

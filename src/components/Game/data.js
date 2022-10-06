@@ -1,0 +1,43 @@
+export const fruitsCardsImages = [
+    { "src": "/cards/fruitsGameCards/avocado.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/banana.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/cherry.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/orange.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pineapple.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/strawberry .jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/lime.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/apricot.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/blueberries.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/fig.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/grapes.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/kiwi.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/melon.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pear.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/pomegranate friut.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/raspberries.jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/watermelon .jpg", matched: false },
+    { "src": "/cards/fruitsGameCards/papaya.jpg", matched: false },
+
+]
+
+export const numberCardImages = [
+    { "src": "/cards/numberGameCards/-2.jpg", matched: false },
+    { "src": "/cards/numberGameCards/0.jpg", matched: false },
+    { "src": "/cards/numberGameCards/1.jpg", matched: false },
+    { "src": "/cards/numberGameCards/2.jpg", matched: false },
+    { "src": "/cards/numberGameCards/3.jpg", matched: false },
+    { "src": "/cards/numberGameCards/4.jpg", matched: false },
+    { "src": "/cards/numberGameCards/5.jpg", matched: false },
+    { "src": "/cards/numberGameCards/6.jpg", matched: false },
+    { "src": "/cards/numberGameCards/8.jpg", matched: false },
+    { "src": "/cards/numberGameCards/10.jpg", matched: false },
+    { "src": "/cards/numberGameCards/11.jpg", matched: false },
+    { "src": "/cards/numberGameCards/13.jpg", matched: false },
+    { "src": "/cards/numberGameCards/20.jpg", matched: false },
+    { "src": "/cards/numberGameCards/27.jpg", matched: false },
+    { "src": "/cards/numberGameCards/33.jpg", matched: false },
+    { "src": "/cards/numberGameCards/45.jpg", matched: false },
+    { "src": "/cards/numberGameCards/53.jpg", matched: false },
+    { "src": "/cards/numberGameCards/88.jpg", matched: false },
+]
+

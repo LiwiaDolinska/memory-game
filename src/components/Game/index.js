@@ -2,54 +2,14 @@ import { useEffect, useState } from "react";
 import { SingleCard } from "../SingleCard";
 import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints } from "./styles";
 import { WinnerAlert } from "../WinnerAlert";
+import { fruitsCardsImages, numberCardImages } from "./data";
 
 
 const numbersCover = "/cards/numberGameCards/number-cover.jpg"
 
 const fruitCover = "/cards/fruitsGameCards/cover.jpg"
 
-const fruitsCardsImages = [
-    { "src": "/cards/fruitsGameCards/avocado.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/banana.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/cherry.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/orange.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/pineapple.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/strawberry.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/lime.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/apricot.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/blueberries.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/fig.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/grapes.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/kiwi.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/melon.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/pear.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/pomegranate friut.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/raspberries.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/watermelon.jpg", matched: false },
-    { "src": "/cards/fruitsGameCards/papaya.jpg", matched: false },
 
-]
-
-const numberCardImages = [
-    { "src": "/cards/numberGameCards/-2.jpg", matched: false },
-    { "src": "/cards/numberGameCards/0.jpg", matched: false },
-    { "src": "/cards/numberGameCards/1.jpg", matched: false },
-    { "src": "/cards/numberGameCards/2.jpg", matched: false },
-    { "src": "/cards/numberGameCards/3.jpg", matched: false },
-    { "src": "/cards/numberGameCards/4.jpg", matched: false },
-    { "src": "/cards/numberGameCards/5.jpg", matched: false },
-    { "src": "/cards/numberGameCards/6.jpg", matched: false },
-    { "src": "/cards/numberGameCards/8.jpg", matched: false },
-    { "src": "/cards/numberGameCards/10.jpg", matched: false },
-    { "src": "/cards/numberGameCards/11.jpg", matched: false },
-    { "src": "/cards/numberGameCards/13.jpg", matched: false },
-    { "src": "/cards/numberGameCards/20.jpg", matched: false },
-    { "src": "/cards/numberGameCards/27.jpg", matched: false },
-    { "src": "/cards/numberGameCards/33.jpg", matched: false },
-    { "src": "/cards/numberGameCards/45.jpg", matched: false },
-    { "src": "/cards/numberGameCards/53.jpg", matched: false },
-    { "src": "/cards/numberGameCards/88.jpg", matched: false },
-]
 
 function isWinner(cards) {
     return cards.length > 0 && cards.every((card) => card.matched)
@@ -65,7 +25,6 @@ function getWinners(points) {
             winners.push(i)
         }
     }
-    console.log(winners)
     return winners
 }
 
@@ -78,6 +37,7 @@ export function Game({ gameSize, theme, playersNumber }) {
     const playersArray = [...Array(playersNumber).keys()]
     const [points, setPoints] = useState(new Array(playersNumber).fill(0))
     const [turn, setTurn] = useState(0)
+    const [cardsShown, setCardsShown] = useState(false)
 
     const winner = isWinner(cards)
     // rozłożyć karty, podwoić je
@@ -98,6 +58,7 @@ export function Game({ gameSize, theme, playersNumber }) {
         setPoints(new Array(playersNumber).fill(0))
         shuffleCards()
         setTurn(0)
+        setCardsShown(false)
     }
 
     // wybór karty
@@ -152,12 +113,9 @@ export function Game({ gameSize, theme, playersNumber }) {
     }
 
     const showCards = () => {
-        setCards(cards => {
-            return cards.map(item => {
-                return { ...item, matched: true }
-            })
-        })
+        setCardsShown(true)
     }
+
     useEffect(() => {
         shuffleCards()
     }, [])
@@ -170,7 +128,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                     <h1>memory</h1>
                 </div>
                 <div>
-                    <Button onClick={showCards}>Show cards</Button>
+                    {cardsShown ? null : (<Button onClick={showCards}>Show cards</Button>)}
                     <Button onClick={resetGame}>New Game</Button>
                 </div>
             </FirstSection>
@@ -181,7 +139,7 @@ export function Game({ gameSize, theme, playersNumber }) {
                         key={card.id}
                         cover={cover}
                         handleChoice={handleChoice}
-                        flipped={card === firstChosenCard || card === secondChosenCard || card.matched}
+                        flipped={card === firstChosenCard || card === secondChosenCard || card.matched || cardsShown}
                         isSmall={gameSize === 6}
                     />
                 ))}
