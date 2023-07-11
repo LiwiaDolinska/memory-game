@@ -31,12 +31,7 @@ margin: 15px 20px;
 display: inline-block;
 border-radius: 5px;
 `
-const Input = styled.input`
-display: none;
-&:checked + label {
-background-color: black; 
-}
-`
+
 const FirstSection = styled.div`
 display: flex;
 justify-content: space-between;

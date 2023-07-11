@@ -13,8 +13,6 @@ top: 50%;
 left: 50%;
 border: 1px solid black;
 transform: translate(-50%, -50%);
-
-
 `
 
 export { WinnerBox };

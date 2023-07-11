@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { SingleCard } from "../SingleCard";
 import { MainPage, Button, PlayerButton, FirstSection, GameSection, PlayersSection, PlayerPoints } from "./styles";
 import { WinnerAlert } from "../WinnerAlert";
@@ -16,7 +16,6 @@ function isWinner(cards) {
 }
 
 
-// funkcja która bierze punkty i pobiera index playera
 function getWinners(points) {
     const highestPoints = Math.max(...points)
     const winners = []
@@ -40,9 +39,8 @@ export function Game({ gameSize, theme, playersNumber }) {
     const [cardsShown, setCardsShown] = useState(false)
 
     const winner = isWinner(cards)
-    // rozłożyć karty, podwoić je
 
-    const shuffleCards = () => {
+    const shuffleCards = useCallback(() => {
         const pairs = gameSize * gameSize / 2
         let cardsImages = theme === "Numbers" ? numberCardImages : fruitsCardsImages
         const limitedCards = cardsImages.slice(0, pairs)
@@ -52,7 +50,7 @@ export function Game({ gameSize, theme, playersNumber }) {
 
         setCards(shuffledCards)
 
-    }
+    }, [gameSize, theme]);
 
     const resetGame = () => {
         setPoints(new Array(playersNumber).fill(0))
@@ -61,7 +59,6 @@ export function Game({ gameSize, theme, playersNumber }) {
         setCardsShown(false)
     }
 
-    // wybór karty
     const handleChoice = (card) => {
         if (firstChosenCard !== null && secondChosenCard !== null) {
             return
@@ -118,7 +115,7 @@ export function Game({ gameSize, theme, playersNumber }) {
 
     useEffect(() => {
         shuffleCards()
-    }, [])
+    }, [shuffleCards])
 
 
     return <>
